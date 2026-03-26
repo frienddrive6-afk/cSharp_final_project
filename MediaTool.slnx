@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="MediaTool.App/MediaTool.App.csproj" />
+  <Project Path="MediaTool.Core/MediaTool.Core.csproj" />
+  <Project Path="MediaTool.Infrastructure/MediaTool.Infrastructure.csproj" />
+</Solution>

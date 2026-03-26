@@ -15,4 +15,7 @@ public class AppOptions
     public List<string> WhiteList {get; set; } = new List<string>();
     public List<string> BlackList {get; set; } = new List<string>();
 
+    public bool IsWriteMode { get; set; } = false;
+    public MetadataContainer WriteValues { get; set; } = new MetadataContainer();
+
 }

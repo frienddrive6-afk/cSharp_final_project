@@ -18,13 +18,19 @@ public class AppRunner
 
     public void Run()
     {
-        if (_options.OperationType == "folder")
+        if(_options.IsWriteMode)
         {
-            ProcessFolder();
-        }
-        else if (_options.OperationType == "photo")
+            ExecuteWrite();
+        }else
         {
-            ProcessFile(_options.Path);
+            if (_options.OperationType == "folder")
+            {
+                ProcessFolder();
+            }
+            else if (_options.OperationType == "photo")
+            {
+                ProcessFile(_options.Path);
+            }
         }
     }
 
@@ -65,4 +71,16 @@ public class AppRunner
         var processor = _metadataProcessorFactory(path);
         MetadataFormatter.Print(processor.Read(path));
     }
+
+
+    private void ExecuteWrite()
+    {
+        var processor = _metadataProcessorFactory(_options.Path);
+        processor.Write(_options.Path, _options.WriteValues);
+
+#if DEBUG
+Console.WriteLine($"[DEBUG] Запись успешна для {_options.Path}");
+#endif
+    }
+
 }

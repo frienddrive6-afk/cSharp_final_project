@@ -55,9 +55,32 @@ public class JpegProcessor : IMetadataProcessor
         return container;
     }
 
+
+
+
+
+
     public void Write(string filePath, MetadataContainer data)
     {
         
+        var argList = MetadataToArgsConverter.GetExifToolArgs(data);
+    
+        if(argList.Count == 0) return;
+
+
+        string args = string.Join(" ", argList) + $" \"{filePath}\"";
+
+        Console.WriteLine($"[DEBUG] Выполняю команду: exiftool {args}");
+
+        var result = CommandRunner.Execute("exiftool", args);
+
+        if(result.IsSuccess == false)
+        {
+            throw new Exception($"Ошибка ExifTool: {result.StandardError}");
+        }
+
+        Console.WriteLine($"Результат ExifTool: {result.StandardOutput}");
+
     }
 
 
